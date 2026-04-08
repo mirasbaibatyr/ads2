@@ -4,7 +4,6 @@ import org.example.structures.*;
 import java.util.Scanner;
 
 public class BankSystem {
-    // Инициализация менеджеров структур данных
     static AccountManager accountManager = new AccountManager();
     static TransactionManager transactionManager = new TransactionManager();
     static BillQueueManager billManager = new BillQueueManager();
@@ -12,7 +11,7 @@ public class BankSystem {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println("--- System Initialization (Array) ---");
+        System.out.println("Array");
         BankAccount[] arr = new BankAccount[3];
         arr[0] = new BankAccount("1", "Miras1", 150000);
         arr[1] = new BankAccount("2", "Miras2", 220000);
@@ -22,7 +21,6 @@ public class BankSystem {
             System.out.println(arr[i].toString());
             accountManager.addAccount(arr[i]);
         }
-        System.out.println("-------------------------------------\n");
 
         boolean running = true;
 
@@ -32,7 +30,7 @@ public class BankSystem {
             System.out.println("2.ATM");
             System.out.println("3.Admin");
             System.out.println("4.Exit");
-            System.out.print("Choose an option: ");
+            System.out.print("Choose");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -58,7 +56,6 @@ public class BankSystem {
         }
     }
 
-    // --- BANK MENU ---
     static void bankMenu() {
         boolean back = false;
         while (!back) {
@@ -83,8 +80,8 @@ public class BankSystem {
 
                     String newAccNumber = "200" + (accountManager.getAccountCount() + 1);
                     BankAccount newAcc = new BankAccount(newAccNumber, name, balance);
-                    requestManager.addRequest(newAcc); // Передаем в Request Manager (Queue)
-                    System.out.println("Request sent to Admin! Wait for approval.");
+                    requestManager.addRequest(newAcc);
+                    System.out.println("Request sent to Admin");
                     break;
                 case 2:
                     depositMoney();
@@ -95,7 +92,7 @@ public class BankSystem {
                 case 4:
                     System.out.print("Enter bill name (Internet, Electricity, etc.): ");
                     String bill = scanner.nextLine();
-                    billManager.addBill(bill); // Передаем в Bill Manager
+                    billManager.addBill(bill);
                     transactionManager.pushTransaction("Added bill to queue: " + bill);
                     System.out.println("Bill added successfully.");
                     break;
@@ -116,7 +113,7 @@ public class BankSystem {
             System.out.println("1.Check balance");
             System.out.println("2.Withdraw money");
             System.out.println("3.Back");
-            System.out.print("Choice: ");
+            System.out.print("Choice");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -154,7 +151,7 @@ public class BankSystem {
             System.out.println("4.Show last transaction (Peek)");
             System.out.println("5.Undo transaction (Pop)");
             System.out.println("6.Back");
-            System.out.print("Choice: ");
+            System.out.print("Choice");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -194,7 +191,7 @@ public class BankSystem {
                     back = true;
                     break;
                 default:
-                    System.out.println("Wrong input!");
+                    System.out.println("Wrong input");
                     break;
             }
         }
@@ -215,14 +212,14 @@ public class BankSystem {
             String log = "Deposit " + amount + " to " + name;
             transactionManager.pushTransaction(log);
 
-            System.out.println("Success! New balance: " + acc.balance);
+            System.out.println("New balance: " + acc.balance);
         } else {
-            System.out.println("User not found!");
+            System.out.println("User not found");
         }
     }
 
     static void withdrawMoney() {
-        System.out.print("Enter your name: ");
+        System.out.print("Enter name: ");
         String name = scanner.nextLine();
         BankAccount acc = accountManager.findAccount(name);
 
@@ -237,12 +234,12 @@ public class BankSystem {
                 String log = "Withdraw " + amount + " from " + name;
                 transactionManager.pushTransaction(log);
 
-                System.out.println("Success! New balance: " + acc.balance);
+                System.out.println("New balance: " + acc.balance);
             } else {
-                System.out.println("Not enough money on balance!");
+                System.out.println("Not enough money");
             }
         } else {
-            System.out.println("User not found!");
+            System.out.println("User not found");
         }
     }
 }
